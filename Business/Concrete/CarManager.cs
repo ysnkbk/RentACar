@@ -8,6 +8,9 @@ using Entitites.DTOs;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Business.Constants;
+using Core.CrossCuttingConcerns.Validation;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -41,14 +44,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductUpdated);
         }
 
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Id == 1)
-            {
-                return new ErrorResult(Messages.ProductNameInvalid);
-
-            }
             _carDal.Add(car);
             return new SuccessResult(Messages.ProductAdded);
         }

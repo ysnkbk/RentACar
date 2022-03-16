@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Entitites.Concrete;
@@ -18,13 +21,10 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            if (color.ColorId == 1)
-            {
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+            ValidationTool.Validate(new CarValidator(), color);
             _colorDal.Add(color);
             return new SuccessResult(Messages.ProductAdded);
 
