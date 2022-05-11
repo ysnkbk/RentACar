@@ -27,10 +27,10 @@ namespace Business.Concrete
             _carDal.Delete(car);
             if (car.Id == 1)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.CarNameInvalid);
 
             }
-            return new SuccessResult(Messages.ProductDeleted);
+            return new SuccessResult(Messages.CarDeleted);
 
         }
         public IResult Update(Car car)
@@ -38,17 +38,17 @@ namespace Business.Concrete
             _carDal.Update(car);
             if (car.Id == 1)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.CarNameInvalid);
 
             }
-            return new SuccessResult(Messages.ProductUpdated);
+            return new SuccessResult(Messages.CarUpdated);
         }
 
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -57,7 +57,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ProductsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
@@ -66,7 +66,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id), Messages.ProductsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id), Messages.CarsListed);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
@@ -84,7 +84,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<CarDetailsDto>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.ProductsListed);
+            return new SuccessDataResult<List<CarDetailsDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
         }
     }
 }

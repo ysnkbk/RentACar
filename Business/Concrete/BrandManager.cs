@@ -26,7 +26,7 @@ namespace Business.Concrete
         {
             ValidationTool.Validate(new BrandValidator(), brand);
             _brandDal.Add(brand);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.BrandAdded);
 
         }
 
@@ -34,10 +34,10 @@ namespace Business.Concrete
         {
             if (brand.BrandId == 1)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.BrandNameInvalid);
             }
             _brandDal.Delete(brand);
-            return new SuccessResult(Messages.ProductDeleted);
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
         public IDataResult<List<Brand>> GetAll()
@@ -47,12 +47,12 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
 
             }
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.ProductsListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
         public IDataResult<List<Brand>> GetBrandsByBrandId(int id)
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(p => p.BrandId == id), Messages.ProductsListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(p => p.BrandId == id), Messages.BrandsListed);
         }
 
 
@@ -61,10 +61,10 @@ namespace Business.Concrete
         {
             if (brand.BrandId == 1)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.BrandNameInvalid);
             }
             _brandDal.Update(brand);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.BrandsUpdated);
         }
     }
 }

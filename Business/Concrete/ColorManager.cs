@@ -24,9 +24,9 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
-            ValidationTool.Validate(new CarValidator(), color);
+            ValidationTool.Validate(new ColorValidator(), color);
             _colorDal.Add(color);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.ColorAdded);
 
 
         }
@@ -35,45 +35,38 @@ namespace Business.Concrete
         {
             if (color.ColorId == 1)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.ColorValueInvalid);
             }
             _colorDal.Add(color);
-            return new SuccessResult(Messages.ProductDeleted);
+            return new SuccessResult(Messages.ColorDeleted);
         }
 
+        public IDataResult<List<Color>> GetAll()
+        {
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorsListed);
+        }
+
+        public IDataResult<List<Color>> GetColorByColorId(int id)
+        {
+            if((_colorDal.GetAll(c => c.ColorId == id)).Count>0)
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c=>c.ColorId==id), Messages.ColorsListed);
+
+            return new ErrorDataResult<List<Color>>(Messages.ColorsNotListed);
+        }
 
         public IResult Update(Color color)
         {
             if (color.ColorId == 1)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.ColorNameInvalid);
             }
             _colorDal.Add(color);
-            return new SuccessResult(Messages.ProductUpdated);
+            return new SuccessResult(Messages.ColorUpdated);
         }
 
 
 
-        IDataResult<List<Color>> IColorService.GetAll()
-        {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
-
-            }
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ProductsListed);
-        }
-
-
-        IDataResult<List<Color>> IColorService.GetColorByColorId(int id)
-        {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
-            }
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(p => p.ColorId == id), Messages.ProductsListed);
-        }
-
+      
 
     }
 }
