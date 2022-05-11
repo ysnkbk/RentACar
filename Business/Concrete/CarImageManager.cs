@@ -59,10 +59,10 @@ namespace Business.Concrete
            
         }
 
-        public IDataResult<List<CarImage>> GetByCarId(int carId)
+        public IDataResult<List<CarImage>> GetByCarImageId(CarImage carImage)
         {
 
-            var result = _carImageDal.GetAll(p=>p.CarId==carId);
+            var result = _carImageDal.GetAll(p=>p.CarId==carImage.CarId);
             if (result != null)
             {
                 return new SuccessDataResult<List<CarImage>>(result);

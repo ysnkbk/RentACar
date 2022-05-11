@@ -29,9 +29,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbycarId")]
-        public IActionResult GetByCarId(int id)
+        public IActionResult GetByCarImageId(CarImage carImage)
         {
-            var result = _carImageService.GetByCarId(id);
+            var result = _carImageService.GetByCarImageId(carImage);
             if (result.Success)
             {
                 return Ok(result);
@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpPost("add")]
-        public IActionResult Add([FromForm] IFormFile file, [FromForm] CarImage carImage  )
+        public IActionResult Add([FromForm] IFormFile file, [FromForm] CarImage carImage)
         {
             var result = _carImageService.Add(file, carImage);
             if (result.Success)
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update([FromForm] IFormFile file,[FromForm] CarImage carImage)
+        public IActionResult Update([FromForm] IFormFile file, [FromForm] CarImage carImage)
         {
             var result = _carImageService.Update(file, carImage);
             if (result.Success)
@@ -61,8 +61,13 @@ namespace WebAPI.Controllers
         [HttpPost("delete")]
         public IActionResult Delete([FromForm] CarImage carImage)
         {
-            return null;
+            var carDeleteImage = _carImageService.GetByCarImageId(carImage).Data;
+            var result = _carImageService.Delete(carImage);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
-
     }
 }
