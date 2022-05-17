@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entitites.DTOs
+namespace Entities.DTOs
 {
     public class CarDetailsDto
     {

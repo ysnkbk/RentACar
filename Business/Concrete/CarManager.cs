@@ -1,10 +1,10 @@
 ﻿using Business.Abstract;
-using Entitites.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using Entitites.DTOs;
+using Entities.DTOs;
 using Core.Utilities;
 using DataAccess.Abstract;
 using Business.Constants;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Core.Entities
 {
-    interface IDTOs
+    public interface IDtos
     {
     }
 }
